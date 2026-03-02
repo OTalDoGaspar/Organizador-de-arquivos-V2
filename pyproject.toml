@@ -1,6 +1,7 @@
 [project]
 
-name = "organizador-de-arquivos-v2"
+name = "gaspars-file-organizer"
+owner = "OTalDoGaspar"
 version = "1.0.0"
 readme = "README.md"
 requires-python = ">=3.8"
