@@ -1,8 +1,9 @@
 import sys
 sys.dont_write_bytecode = True
 
-from .Arquivo import Arquivo
+from Arquivo import Arquivo
 import shutil
+
 import os
 
 
@@ -17,6 +18,7 @@ class Organizar:
     username = os.getlogin
     destino = os.getenv("Destino")
     downloads = os.getenv("Downloads")
+
     def Organizar_downloads(self):
         if (self.destino != None) and (self.downloads != None):
 
@@ -27,7 +29,7 @@ class Organizar:
                 pasta = ""
                 arquivo = Arquivo(i)
                 os.chdir(self.destino)
-                if(os.path.isdir(rf"{self.downloads}\{arquivo.getNome()}") == False):
+                if(os.path.isdir(os.path.join(self.downloads, arquivo.getNome)) == False):
                     pastas = os.listdir()
                     if (arquivo.getExtensao() in self.extensoes_imagem):
                         
@@ -66,7 +68,10 @@ class Organizar:
                     caminho = os.path.join(self.destino, pasta, arquivo.getNome())
                     print(caminho)
                     if(arquivo.getNome not in os.listdir()):
-                        shutil.move(rf"{self.downloads}\{arquivo.getNome()}", caminho )
+                        if(os.name == "nt"):
+                            shutil.move(rf"{self.downloads}\{arquivo.getNome()}", caminho )
+                        else:
+                            shutil.move(rf"{self.downloads}/{arquivo.getNome()}", caminho)
                         print(f"{arquivo.getNome()} movido com sucesso!")
                     else:
                         print(f"O arquivo: {arquivo.getNome()} já existe na pasta correspondente!")
