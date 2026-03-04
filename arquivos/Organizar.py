@@ -1,7 +1,7 @@
 import sys
 sys.dont_write_bytecode = True
 
-from Arquivo import Arquivo
+from .Arquivo import Arquivo
 import shutil
 from pathlib import Path
 import os
