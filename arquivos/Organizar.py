@@ -31,13 +31,12 @@ class Organizar:
             for i in conteudo:
                 pasta = ""
                 arquivo = Arquivo(i)
-                os.chdir(self.destino)
+                # os.chdir(self.destino)
+                Origin_path = self.downloads / arquivo.getNome()
                 if(os.path.isdir(Path(self.downloads)/arquivo.getNome()) == False):
                     pastas = os.listdir()
-                    if (arquivo.getExtensao() in self.extensoes_imagem):
-                        
-                        os.makedirs("Imagens", exist_ok=True)
-
+                    if (arquivo.getExtensao() in self.extensoes_imagem):  
+                        # os.makedirs("Imagens", exist_ok=True)
                         pasta = "Imagens"
 
                     elif (arquivo.getExtensao() in self.extensoes_texto):
@@ -48,33 +47,23 @@ class Organizar:
 
                     elif (arquivo.getExtensao() in self.extensoes_comprimidos):
 
-                        os.makedirs("Comprimidos", exist_ok=True)  
-
                         pasta = "Comprimidos"
 
                     elif (arquivo.getExtensao() in self.extensoes_video):
-
-                        os.makedirs("Videos", exist_ok=True)
 
                         pasta =  "Videos"
 
                     elif (arquivo.getExtensao() in self.extensoes_audio):
 
-                        os.makedirs("Audios", exist_ok=True)
-
                         pasta = "Audios"
                     else:
-                        os.makedirs(arquivo.getExtensao(), exist_ok=True)
 
                         pasta = rf"{arquivo.getExtensao()}"
                     
                     caminho = Path(self.destino)/pasta/arquivo.getNome()
                     print(caminho)
                     if(arquivo.getNome not in os.listdir()):
-                        if(os.name == "nt"):
-                            shutil.move(Path(self.downloads)/arquivo.getNome, caminho )
-                        else:
-                            shutil.move(Path(self.downloads)/arquivo.getNome, caminho)
+                        shutil.move(str(Path(Origin_path),str(caminho)))
                         print(f"{arquivo.getNome()} movido com sucesso!")
                     else:
                         print(f"O arquivo: {arquivo.getNome()} já existe na pasta correspondente!")
