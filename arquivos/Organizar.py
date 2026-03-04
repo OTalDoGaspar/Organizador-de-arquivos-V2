@@ -35,41 +35,20 @@ class Organizar:
                 Origin_path = self.downloads / arquivo.getNome()
                 if(os.path.isdir(Path(self.downloads)/arquivo.getNome()) == False):
                     pastas = os.listdir()
-                    if (arquivo.getExtensao() in self.extensoes_imagem):  
-                        os.makedirs("Imagens", exist_ok=True)
-                        pasta = "Imagens"
 
-                    elif (arquivo.getExtensao() in self.extensoes_texto):
+                    if (arquivo.getExtensao() in self.extensoes_imagem): pasta = "Imagens"
+                    elif (arquivo.getExtensao() in self.extensoes_texto): pasta = "Textos"
+                    elif (arquivo.getExtensao() in self.extensoes_comprimidos): pasta = "Comprimidos"
+                    elif (arquivo.getExtensao() in self.extensoes_video): pasta =  "Videos"
+                    elif (arquivo.getExtensao() in self.extensoes_audio): pasta = "Audios"
+                    else: pasta = rf"{arquivo.getExtensao()}"
 
-                        os.makedirs("Textos", exist_ok=True)                 
-
-                        pasta = "Textos"
-
-                    elif (arquivo.getExtensao() in self.extensoes_comprimidos):
-
-                        os.makedirs("Comprimidos", exist_ok=True)
-
-                        pasta = "Comprimidos"
-
-                    elif (arquivo.getExtensao() in self.extensoes_video):
-
-                        os.makedirs("Videos", exist_ok=True)
-
-                        pasta =  "Videos"
-
-                    elif (arquivo.getExtensao() in self.extensoes_audio):
-
-                        os.makedirs("Audios", exist_ok=True)
-
-                        pasta = "Audios"
-                    else:
-                        os.makedirs(arquivo.getExtensao(), exist_ok=True)
-
-                        pasta = rf"{arquivo.getExtensao()}"
+                    diretorio_alvo = self.destino / pasta
+                    os.makedirs(diretorio_alvo, exist_ok=True)
                     
                     caminho = Path(self.destino)/pasta/arquivo.getNome()
                     print(caminho)
-                    if(arquivo.getNome not in os.listdir()):
+                    if(not os.path.exists(caminho)):
                         shutil.move(str(Path(Origin_path)),str(caminho))
                         print(f"{arquivo.getNome()} movido com sucesso!")
                     else:
